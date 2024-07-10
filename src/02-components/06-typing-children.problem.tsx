@@ -1,6 +1,10 @@
-import React from "react";
+import { ReactNode } from "react";
 
-export const Button = (props: {}) => {
+interface Props {
+  children: ReactNode;
+}
+
+export const Button = (props: Props) => {
   return <button>{props.children}</button>;
 };
 

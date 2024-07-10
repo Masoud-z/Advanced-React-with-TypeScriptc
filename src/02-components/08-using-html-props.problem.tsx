@@ -1,6 +1,9 @@
-import React from "react";
+import { ButtonHTMLAttributes } from "react";
 
-export const Button = ({ className, ...rest }: {}) => {
+export const Button = ({
+  className,
+  ...rest
+}: ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
     <button {...rest} className={`default-classname ${className}`}></button>
   );
