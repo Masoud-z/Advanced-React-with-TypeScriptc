@@ -6,12 +6,12 @@ interface Data {
   name: string;
 }
 
-const fetchData = () => {
+const fetchData = (): Promise<Data> => {
   return Promise.resolve({ id: 1, name: "John" });
 };
 
 export const Component = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState<Data>();
 
   useEffect(() => {
     fetchData().then((val) => {

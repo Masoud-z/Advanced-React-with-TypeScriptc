@@ -12,7 +12,7 @@ export const NavBar = (props: {
 
 import { Equal, Expect } from "../helpers/type-utils";
 
-type NavBarProps = unknown;
+type NavBarProps = Parameters<typeof NavBar>[number];
 
 type test = Expect<
   Equal<

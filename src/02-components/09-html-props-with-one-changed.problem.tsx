@@ -1,8 +1,15 @@
-import { ComponentProps } from "react";
+import { InputHTMLAttributes } from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
+type OverRideProps<T, TOverRidden> = Omit<T, keyof TOverRidden> & TOverRidden;
+
 export const Input = (
-  props: ComponentProps<"input"> & { onChange: (value: string) => void }
+  props: OverRideProps<
+    InputHTMLAttributes<HTMLInputElement>,
+    {
+      onChange: (e: string) => void;
+    }
+  >
 ) => {
   return (
     <input
