@@ -6,7 +6,7 @@ interface Data {
   name: string;
 }
 
-const fetchData = (): Promise<Data> => {
+const fetchData = () => {
   return Promise.resolve({ id: 1, name: "John" });
 };
 
