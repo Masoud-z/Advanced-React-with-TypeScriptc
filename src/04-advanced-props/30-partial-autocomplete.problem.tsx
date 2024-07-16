@@ -13,9 +13,9 @@ type Size = keyof typeof presetSizes;
  * a Size. But there's an issue (see below).
  */
 
-type LooseSize = Size | string;
+type LooseSize = Size | (string & {});
 
-export const Icon = (props: { size: LooseSize }) => {
+export function Icon(props: { size: LooseSize }) {
   return (
     <div
       style={{
@@ -32,7 +32,7 @@ export const Icon = (props: { size: LooseSize }) => {
       }}
     />
   );
-};
+}
 
 <>
   {/* Autocomplete for sm and xs are no longer working! */}
