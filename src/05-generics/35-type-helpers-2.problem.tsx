@@ -1,5 +1,3 @@
-import { ChangeEventHandler } from "react";
-
 /**
  * It would be really nice to refactor this so that it's
  * more reusable. We can do that with a type helper.
@@ -8,18 +6,31 @@ import { ChangeEventHandler } from "react";
  * and returns it along with a union with all of its
  * keys turned to undefined.
  */
-export type InputProps = (
-  | {
-      value: string;
-      onChange: ChangeEventHandler;
-    }
-  | {
-      value?: undefined;
-      onChange?: undefined;
-    }
-) & {
+
+import { ChangeEventHandler } from "react";
+
+type UndefinedObject<T> = Partial<Record<keyof T, undefined>>;
+type AllOrNone<T> = T | UndefinedObject<T>;
+
+export type InputProps = AllOrNone<{
+  value: string;
+  onChange: ChangeEventHandler;
+}> & {
   label: string;
 };
+
+//  (
+//   | {
+//       value: string;
+//       onChange: ChangeEventHandler;
+//     }
+//   | {
+//       value?: undefined;
+//       onChange?: undefined;
+//     }
+// ) & {
+//   label: string;
+// };
 
 export const Input = ({ label, ...props }: InputProps) => {
   return (
