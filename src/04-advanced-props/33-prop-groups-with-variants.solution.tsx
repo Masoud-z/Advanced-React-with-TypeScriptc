@@ -7,6 +7,8 @@ import { ComponentProps } from "react";
  * That's because satisfies ensures buttonPropsMap is a Record, but doesn't
  * override its type.
  */
+
+type test = ComponentProps<"button">;
 const buttonPropsMap = {
   reset: {
     className: "bg-blue-500 text-white",
