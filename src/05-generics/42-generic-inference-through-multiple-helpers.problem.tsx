@@ -1,13 +1,14 @@
 import { Equal, Expect } from "../helpers/type-utils";
 
-interface Button {
-  value: string;
+interface Button<TValue> {
+  value: TValue;
   label: string;
+  id: string;
 }
 
-interface ButtonGroupProps {
-  buttons: Button[];
-  onClick: (value: string) => void;
+interface ButtonGroupProps<TValue> {
+  buttons: Button<TValue>[];
+  onClick: (value: TValue, id: string) => void;
 }
 
 /**
@@ -19,7 +20,9 @@ interface ButtonGroupProps {
  *
  * 1. Try to solve this problem using generics.
  */
-const ButtonGroup = (props: ButtonGroupProps) => {
+const ButtonGroup = <TValue extends string>(
+  props: ButtonGroupProps<TValue>
+) => {
   return (
     <div>
       {props.buttons.map((button) => {
@@ -27,7 +30,7 @@ const ButtonGroup = (props: ButtonGroupProps) => {
           <button
             key={button.value}
             onClick={() => {
-              props.onClick(button.value);
+              props.onClick(button.value, button.id);
             }}
           >
             {button.label}
@@ -47,10 +50,12 @@ const ButtonGroup = (props: ButtonGroupProps) => {
       {
         value: "add",
         label: "Add",
+        id: "2342sdfsd453r4sdf",
       },
       {
         value: "delete",
         label: "Delete",
+        id: "2342sdfsd453r4sdf",
       },
     ]}
   ></ButtonGroup>
