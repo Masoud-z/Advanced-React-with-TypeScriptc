@@ -25,7 +25,7 @@ interface User {
 }
 
 <>
-  <Table
+  <Table<User>
     // @ts-expect-error rows should be User[]
     rows={[1, 2, 3]}
     renderRow={(row) => {
@@ -33,7 +33,7 @@ interface User {
       return <td>{row.name}</td>;
     }}
   />
-  <Table
+  <Table<User>
     rows={[
       {
         id: 1,
