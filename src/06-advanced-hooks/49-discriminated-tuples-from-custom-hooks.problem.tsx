@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-export type Result<T> = [
-  "loading" | "success" | "error",
-  T | Error | undefined,
-];
+export type Result<T> =
+  | ["loading", undefined]
+  | ["success", T]
+  | ["error", Error];
 
 /**
  * Let's look at one more example of discriminated unions. This time, we're
@@ -20,13 +20,20 @@ export type Result<T> = [
  * When status is 'error', value should be an Error.
  * When status is 'success', value should be T.
  */
-export const useData = <T,>(url: string): Result<T> => {
-  const [result, setResult] = useState<Result<T>>(["loading", undefined]);
+
+type Fetch<TData> =
+  | ["idle"]
+  | ["loading"]
+  | ["fulfilled", TData]
+  | ["error", Error];
+
+export const useData = <T,>(url: string): Fetch<T> => {
+  const [result, setResult] = useState<Fetch<T>>(["loading"]);
 
   useEffect(() => {
     fetch(url)
       .then((response) => response.json())
-      .then((data) => setResult(["success", data]))
+      .then((data) => setResult(["fulfilled", data]))
       .catch((error) => setResult(["error", error]));
   }, [url]);
 
@@ -35,8 +42,10 @@ export const useData = <T,>(url: string): Result<T> => {
 
 const Component = () => {
   const [status, value] = useData<{ title: string }>(
-    "https://jsonplaceholder.typicode.com/todos/1",
+    "https://jsonplaceholder.typicode.com/todos/1"
   );
+
+  if (status === "idle") return <></>;
 
   if (status === "loading") {
     return <div>Loading...</div>;
