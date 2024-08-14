@@ -12,6 +12,7 @@ type Size = keyof typeof presetSizes;
  * We want to allow users to pass in either a string, or
  * a Size. But there's an issue (see below).
  */
+//fix them partial autocomplete
 
 type LooseSize = Size | (string & {});
 

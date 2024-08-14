@@ -15,7 +15,10 @@ const useCustomState = <TValue>(initial: TValue) => {
      * any type. We want to make sure that the type of the
      * thing returned is inferred properly.
      */
-    useComputed: (factory: (value: any) => any, deps?: DependencyList) => {
+    useComputed: <TReturn>(
+      factory: (value: TValue) => TReturn,
+      deps?: DependencyList
+    ) => {
       return useMemo(() => {
         return factory(value);
       }, [value, ...(deps || [])]);
@@ -32,7 +35,7 @@ const Component = () => {
    * useComputed?
    */
   const reversedAsString = arrayOfNums.useComputed((nums) =>
-    Array.from(nums).reverse().map(String),
+    Array.from(nums).reverse().map(String)
   );
 
   type test = Expect<Equal<typeof reversedAsString, string[]>>;
