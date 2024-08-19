@@ -1,8 +1,8 @@
-import { lazy, Suspense, useMemo } from "react";
+import { ComponentProps, ComponentType, lazy, Suspense, useMemo } from "react";
 
-type Props = {
-  loader: unknown;
-};
+type Props<C extends ComponentType<any>> = {
+  loader: () => Promise<{ default: C }>;
+} & ComponentProps<C>;
 
 /**
  * 1. This component is supposed to take a loader function that returns a
@@ -16,7 +16,10 @@ type Props = {
  * - You'll need to make this a generic component!
  * - React.ComponentProps will come in handy, as will React.ComponentType
  */
-function LazyLoad({ loader, ...props }: Props) {
+function LazyLoad<C extends ComponentType<any>>({
+  loader,
+  ...props
+}: Props<C>) {
   const LazyComponent = useMemo(() => lazy(loader), [loader]);
 
   return (
