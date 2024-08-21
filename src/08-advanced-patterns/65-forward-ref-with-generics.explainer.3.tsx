@@ -12,7 +12,7 @@ export const Table = <T,>(props: TableProps<T>) => {
 type FC<Props> = {
   (arg: Props): React.ReactNode;
   // Try uncommenting this - and it works!
-  someOtherThing?: string;
+  // someOtherThing?: string;
 };
 
 const removeInference = <Props,>(component: FC<Props>) => {
