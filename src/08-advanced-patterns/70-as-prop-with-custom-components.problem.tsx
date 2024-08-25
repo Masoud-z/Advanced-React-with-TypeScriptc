@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentPropsWithoutRef, ElementType } from "react";
 import { Equal, Expect } from "../helpers/type-utils";
 
 /**
@@ -17,10 +17,10 @@ import { Equal, Expect } from "../helpers/type-utils";
  *   - ComponentPropsWithRef
  *   - ComponentProps
  */
-export const Wrapper = <TAs extends keyof JSX.IntrinsicElements>(
+export const Wrapper = <TAs extends ElementType>(
   props: {
     as: TAs;
-  } & React.ComponentProps<TAs>,
+  } & ComponentPropsWithoutRef<TAs>
 ) => {
   const Comp = props.as as string;
 
