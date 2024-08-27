@@ -62,7 +62,7 @@ type FormValues = {
 };
 
 const Example3 = () => {
-  const form = useForm();
+  const form = useForm<FormValues>();
 
   return (
     <form

@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { DefaultValues, FieldValues, useForm } from "react-hook-form";
 import { Equal, Expect, Extends } from "../helpers/type-utils";
 
 /**
@@ -12,9 +12,9 @@ import { Equal, Expect, Extends } from "../helpers/type-utils";
  *
  * defaultValues as DefaultValues<TValues>
  */
-const useCustomForm = (defaultValues: any) => {
+const useCustomForm = <TValues extends FieldValues>(defaultValues: TValues) => {
   const form = useForm({
-    defaultValues: defaultValues,
+    defaultValues: defaultValues as DefaultValues<TValues>,
   });
 
   return {
@@ -31,7 +31,7 @@ useCustomForm();
 
 useCustomForm(
   // @ts-expect-error defaultValues must be an object
-  2,
+  2
 );
 
 const customForm = useCustomForm({
