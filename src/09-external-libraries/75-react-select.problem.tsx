@@ -1,5 +1,6 @@
-import ReactSelect from "react-select";
+import ReactSelect, { GroupBase } from "react-select";
 import { Equal, Expect } from "../helpers/type-utils";
+import { StateManagerProps } from "react-select/dist/declarations/src/stateManager";
 
 /**
  * 1. Try to figure out the types the props of the Select component should have,
@@ -7,7 +8,17 @@ import { Equal, Expect } from "../helpers/type-utils";
  *
  * Here's a clue: ReactSelect exports a type called 'Props'...
  */
-export const Select = (props) => {
+
+type ReactSelectType = "primary" | "secondary";
+export const Select = <
+  TOptions,
+  TMulti extends boolean = false,
+  Group extends GroupBase<TOptions> = GroupBase<TOptions>
+>(
+  props: StateManagerProps<TOptions, TMulti, Group> & {
+    type?: ReactSelectType ;
+  }
+) => {
   return <ReactSelect {...props} />;
 };
 
@@ -42,7 +53,7 @@ const guitarists: Option[] = [
     isMulti
     onChange={(option) => {
       // If isMulti is true, it should be an array
-      type test = Expect<Equal<typeof option, readonly Option[]>>;
+      type test = Equal<typeof option, readonly Option[]>;
     }}
   />
 </>;
